@@ -8,14 +8,14 @@ from tensorflow.keras import layers
 import cv2
 import numpy as np
 from tensorflow.keras import regularizers
-test=tf.keras.utils.image_dataset_from_directory(
-    r"/content/Untitled Folder 1/dataset/validation",
+val=tf.keras.utils.image_dataset_from_directory(
+    "path of validation folder ",
     batch_size=32,
     image_size=(64,64)
 )
-test= test.map(lambda x, y: (x / 255, y))
+val= val.map(lambda x, y: (x / 255, y))
 train=tf.keras.utils.image_dataset_from_directory(
-    r"/content/Untitled Folder 1/dataset/train",
+    "path of test folder",
     batch_size=32,
     image_size=(64,64))
 
@@ -42,6 +42,6 @@ md.compile(optimizer='rmsprop',loss=tf.keras.losses.SparseCategoricalCrossentrop
 from tensorflow.keras.callbacks import EarlyStopping
 
 early_stopping = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
-md.fit(train, epochs=20, validation_data=test, validation_steps=len(test), callbacks=[early_stopping])
+md.fit(train, epochs=20, validation_data=val, validation_steps=len(test), callbacks=[early_stopping])
 
-md.save(r"/content/Untitled Folder 2")
+md.save("enter the path where you want ot save the model")
